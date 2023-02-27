@@ -1,1 +1,2 @@
-# ACIT_MasterProject
+# ACIT: Master Project
+
