@@ -1,10 +1,9 @@
-print("version: 13")                                                                         
-
+'''
+Importing Dependencies
+'''
 import os
 import random
-from prompt_generator import prompt_generator 
 import tensorflow as tf
-from image_generator import gen_image
 import imageio as iio
 from PIL import Image
 import pickle    
@@ -19,13 +18,16 @@ import numpy as np
 from IPython import display
 from operator import itemgetter, attrgetter
 import shutil
-from utils import gen_captions
-from utils import summarize
 
-from utils import update_pop_images, tournament_selection, crossover, mutation
-print("importing hashtag generator")
+
+from prompt_generator import prompt_generator 
+from image_generator import gen_image
+from utils import gen_captions, summarize, tournament_selection, crossover, mutation
 from hashtag_generator import generate_hashtags_from_prompt
-print("done with importing hashtag generator")        
+
+'''
+Defining helper functions
+'''
 
 #Defining function to update initial population folder 
 def update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, unconditional_guidance_scale):
