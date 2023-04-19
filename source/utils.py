@@ -4,7 +4,6 @@ importing dependencies
 import os
 import urllib.request
 import random
-from google_images_search import GoogleImagesSearch 
 import time
 from datetime import datetime
 from datetime import date
@@ -20,85 +19,6 @@ import re
 Defining helper functions
 '''
 
-#Defining function to store images
-def store_image(pop_images_path: str, url: str):
-    pop_images_path = 'prompt_bank/pop_images'
-    try:
-        filename = os.path.join(pop_images_path, os.path.basename(url))
-        urllib.request.urlretrieve(url, filename)
-        print(f"Image saved to {filename}")
-    except Exception as e:
-        print(f"ERROR - Could not save image - {e}")
-        
-        
-def get_images(num_images):
-  key = 'AIzaSyBgWJj6hxIOkA1Sv73w4g87rO_zr2G2aAM'
-  id = 'a78c3e67fe8f24e41'
- 
-  queries_file = open('prompt_bank/pop_hashtags.txt', "r")
-  queries = queries_file.read()
-  queries = queries.split("\n")
-  random.shuffle(queries)
-
-  queries = queries[:num_images]
-
-  pop_images_path = 'prompt_bank/pop_images'
-
-  gis = GoogleImagesSearch(key, id)
-         
-  for q in queries:
-    print(q)
-    #1 images in each category
-    try:
-        gis.search({'q': q, 'num': 4})
-        for image in gis.results():
-            try:
-                url = image.url
-                store_image(pop_images_path, url)
-            except:
-                pass
-    except:
-        pass
-      
-#defining function to update pop_images folder 
-def update_pop_images():
-
-    pop_images_path = 'prompt_bank/pop_images'
-    
-    if len(os.listdir(pop_images_path)) == 0:
-        dt_stamp = 1
-        t_t_stamp = 0
-    
-    else: 
-      for img_name in os.listdir(pop_images_path)[:1]:
-        
-        file_name = os.path.join(pop_images_path, img_name)
-        created = time.ctime(os.path.getmtime(file_name))
-        created_obj = time.strptime(created)
-
-        dt = datetime.fromtimestamp(mktime(created_obj))
-        dt_stamp = dt.strftime("%Y-%m-%d")
-        print(dt_stamp)
-
-        today = date.today()
-        t_t_stamp = today.strftime("%Y-%m-%d")
-        print(t_t_stamp)
-
-    if dt_stamp == t_t_stamp:
-        print("images downloaded today")
-    else:
-        print("images not downloaded today")
-        
-        #remove content from folder
-        for img_name in os.listdir(pop_images_path):
-          file_name = os.path.join(pop_images_path, img_name)
-          os.remove(file_name)
-        print("folder empty")
-        #downloading 30 images
-        get_images(30)
-        print("downloaded 30 images")
-        
- 
 #Defining tournament selection function
 def tournament_selection(some_posts, k=3):
   """
@@ -124,7 +44,6 @@ def tournament_selection(some_posts, k=3):
   
 #Defining function to perform crossover
 def crossover(some_post1_genotype, some_post2_genotype, crossover_probability):
-
 
   # Evaluate recombination
   rand_c_num = random.uniform(0,1)
