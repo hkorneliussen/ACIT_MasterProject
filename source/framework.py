@@ -411,3 +411,13 @@ def main(iteration, update, clear, num, gs, ngs, key):
 
         iteration = next_iteration
         
+        choice = input('continue? (y or n): ')
+        if choice.lower() == 'n':
+            print(f'Ending. Reached iteration: {iteration-1}')
+            go = False
+        elif choice.lower() == 'y':
+            go = True
+            print(f'starting ieration nr: {iteration}')
+        else:
+            print(f'illegal answer. Ending. Reached iteration: {iteration-1} ')
+        
