@@ -21,6 +21,11 @@ from operator import itemgetter, attrgetter
 from datetime import date
 import re
 import shutil
+from matplotlib import pyplot as plt
+import numpy as np
+from time import sleep
+import numpy as np
+from IPython import display
 
 '''
 Defining helper function
@@ -149,12 +154,14 @@ def main(iteration, update, clear, num, gs, ngs, key):
         '''
         Getting fitness/feedback for current population
         '''
-        i=0
+        b=0
         for image_path in os.listdir(population_folder):
             #read image from population folder
             input_path = os.path.join(population_folder, image_path)
+            print(input_path)
             img = iio.imread(input_path)
-            prompt = posts_dict[i]['prompt']
+            prompt = posts_dict[b]['prompt']
+            print(prompt)
 
             #generate hashtag for image
             hashtag = generate_hashtags_from_prompt(prompt)
@@ -172,17 +179,17 @@ def main(iteration, update, clear, num, gs, ngs, key):
             #get score from user
             response = input('would you interact with this post?')
             if response.lower() == 'y' or response.lower() == 'yes':
-                posts_dict[i]['fitness'] = 1
+                posts_dict[b]['fitness'] = 1
             elif response.lower() == 'n' or response.lower() == 'no':
-                posts_dict[i]['fitness'] = -1
+                posts_dict[b]['fitness'] = -1
             else:
                 print('Illegal answer. Score is unchanged.')
                 pass
 
-            i+=1
+            b+=1
             
         #updating dict file
-        with open(f'evaluations/logs/posts_dict_{iteration}.txt', 'wb') as f:
+        with open(f'logs/posts_dict_{iteration}.txt', 'wb') as f:
             pickle.dump(posts_dict, f)
       
 
