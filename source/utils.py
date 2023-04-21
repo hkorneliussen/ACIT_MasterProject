@@ -138,7 +138,6 @@ def gen_captions(num, key):
     search_list = ['guy', 'friends']
     
     for theme in themes[:num]:
-        print(theme)  
         condition=True
         while(condition):
             prompt = 'Generate an image caption for ' + theme + ':'
@@ -149,6 +148,7 @@ def gen_captions(num, key):
             else:
                 condition=False
                 ret = caption + ' style: high resolution, 4k'
+                print(ret)
                 prompts.append(ret)
        
         
