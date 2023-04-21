@@ -27,7 +27,7 @@ Defining helper function
 '''
 
 #Defining function to update initial population folder 
-def update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, unconditional_guidance_scale):
+def update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, unconditional_guidance_scale, key):
     #folder to store images
     population_folder = 'generated_images/population_0'
     
@@ -54,7 +54,7 @@ def update_init_population(update_initial_population, img_height, img_width, bat
         i=0
         
         #generating prompts
-        prompts = gen_captions(10)
+        prompts = gen_captions(10, key)
     
         #generating images
         for prompt in prompts[10]:
@@ -79,7 +79,7 @@ def update_init_population(update_initial_population, img_height, img_width, bat
 Defining main function
 '''
 
-def main(iteration, update, clear, num, gs, ngs): 
+def main(iteration, update, clear, num, gs, ngs, key): 
     #Defining parameters
     img_height = 512
     img_width = 512
@@ -125,7 +125,7 @@ def main(iteration, update, clear, num, gs, ngs):
     #if this is the first iteration, the initial population must be created
     if iteration==0:        
       #updating initial population
-      update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, new_scale)
+      update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, new_scale, key)
     
     while go:
         
@@ -380,7 +380,7 @@ def main(iteration, update, clear, num, gs, ngs):
         '''
         ADDING 2 NEW
         '''
-        prompts = gen_captions(4)               
+        prompts = gen_captions(4, key)               
         for pr in prompts:
 
             diffusion_noise = tf.random.normal((batch_size, img_height//8, img_width//8, 4))
