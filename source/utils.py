@@ -140,7 +140,7 @@ def gen_captions(num, key):
     for theme in themes[:num]:
         condition=True
         while(condition):
-            prompt = 'Generate a descriptiveimage caption for ' + theme + ', and define specific style:'
+            prompt = 'Generate a descriptive image caption with specified style for ' + theme + ':'
             caption = generate_caption(prompt)
             if re.compile('|'.join(search_list), re.IGNORECASE).search(caption):
                 condition=True
