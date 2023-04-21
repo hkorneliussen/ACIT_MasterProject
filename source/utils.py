@@ -143,12 +143,11 @@ def gen_captions(num, key):
             prompt = 'Generate a descriptiveimage caption for ' + theme + ', and define specific style:'
             caption = generate_caption(prompt)
             if re.compile('|'.join(search_list), re.IGNORECASE).search(caption):
-                print('found')
                 condition=True
             else:
                 condition=False
                 ret = caption + ' style: high resolution, 4k'
-                print(ret)
+
                 prompts.append(ret)
        
         
