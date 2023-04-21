@@ -149,6 +149,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
         '''
         Getting fitness/feedback for current population
         '''
+        i=0
         for image_path in os.listdir(population_folder):
             #read image from population folder
             input_path = os.path.join(population_folder, image_path)
