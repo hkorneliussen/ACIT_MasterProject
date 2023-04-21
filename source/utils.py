@@ -123,9 +123,10 @@ def generate_caption(prompt):
     return caption
     
     
-def gen_captions(num):
+def gen_captions(num, key):
     prompts = []
-    openai.api_key = "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"
+    #openai.api_key = "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"
+    openai.api_key = key
     
     themes_file = open('prompt_bank/themes.txt', 'r')
     themes = themes_file.read()
