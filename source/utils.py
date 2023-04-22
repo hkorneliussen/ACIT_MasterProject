@@ -10,7 +10,6 @@ from datetime import date
 from time import mktime
 import numpy as np   
 from transformers import pipeline
-
 import openai
 import random
 import re
@@ -21,9 +20,7 @@ Defining helper functions
 
 #Defining tournament selection function
 def tournament_selection(some_posts, k=3):
-  """
-  perform tournament selection with k (3 by default) opponents
-  """
+  #perform tournament selection with k (3 by default) opponents
   #Randomly selection one individual, champion by default
   champion_index = random.randint(0, len(some_posts) - 1)
 
@@ -54,7 +51,6 @@ def crossover(some_post1_genotype, some_post2_genotype, crossover_probability):
 
     crossover_point = random.randint(0,len(some_post1_genotype_list[0]))
     
-
     part_1 = some_post1_genotype_list[0][:crossover_point]
 
     some_post2_genotype = np.array(some_post2_genotype)
@@ -71,17 +67,15 @@ def crossover(some_post1_genotype, some_post2_genotype, crossover_probability):
     some_post_child1_genotype = np.reshape(some_post_child1_genotype, (1, 64, 64, 4))
     some_post_child2_genotype = np.reshape(some_post_child1_genotype, (1, 64, 64, 4))
 
-
   else:
     # Children are copies of parents by default
     some_post_child1_genotype, some_post_child2_genotype = some_post1_genotype, some_post2_genotype
 
-  
   list_of_children = [np.array(some_post_child1_genotype), np.array(some_post_child2_genotype)]
-
   
   return list_of_children
-  
+
+#defining function to perform mutation
 def mutation(genotype, mutation_probability):
   
   genotype = genotype.tolist()
@@ -100,15 +94,13 @@ def mutation(genotype, mutation_probability):
           # Replace item with a random value drawn from 0 mean and 1 standard deviation distribution
           genotype[0][j][i][k] = np.random.normal()
           counter+=1
-
       
   genotype = np.asarray(genotype)
-
-
+  
   return genotype
   
   
-# Generate random image captions
+#Defining function to generate random image captions
 def generate_caption(prompt):
     model_engine = "text-davinci-002"
     response = openai.Completion.create(
@@ -122,7 +114,7 @@ def generate_caption(prompt):
     caption = response.choices[0].text.strip()
     return caption
     
-    
+#defining function to create captions    
 def gen_captions(num, key):
     prompts = []
     #openai.api_key = "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"
@@ -152,7 +144,8 @@ def gen_captions(num, key):
        
         
     return prompts
-    
+
+#defining function to summarize prompt
 def summarize(sentence):
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
     summary = summarizer(sentence, max_length=30, min_length=5, do_sample=False)[0]['summary_text']
