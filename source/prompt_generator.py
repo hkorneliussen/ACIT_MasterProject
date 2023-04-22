@@ -1,21 +1,20 @@
+'''This code is based on: 
+https://github.com/rmokady/CLIP_prefix_caption'''
+
 '''
-source: https://pub.towardsai.net/image-captioning-with-clip-and-gpt-d0cb3f3fddda
+Instaling and importing dependencies
 '''
 
-
+#importing dependencies
 import sys
 import subprocess
 import os
 
-print("installing dependencies")
-
-
 #installing dependencies
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'transformers'], stdout=open(os.devnull, 'wb'))
-
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'git+https://github.com/openai/CLIP.git'], stdout=open(os.devnull, 'wb'))
 
-#importing dependencies
+#importing more dependencies
 import clip
 import os
 from torch import nn
@@ -31,11 +30,11 @@ import skimage.io as io
 import PIL.Image
 from IPython.display import Image 
 
+'''
+Defining hyperparameters
+'''
 
 #Defining parameters
-
-print("defining parameters")
-
 N = type(None)
 V = np.array
 ARRAY = np.ndarray
@@ -50,12 +49,14 @@ TNS = Union[Tuple[TN, ...], List[TN]]
 TSN = Optional[TS]
 TA = Union[T, ARRAY]
 
+#defining device type
 D = torch.device
 
-#Defining Model 
-print("defining prompt generator model")
+'''
+Defining prompt generator model
+'''
 
-#Definign model 
+#Defining model 
 class MLP(nn.Module):
 
     def forward(self, x: T) -> T:
@@ -109,10 +110,10 @@ class ClipCaptionPrefix(ClipCaptionModel):
         super(ClipCaptionPrefix, self).train(mode)
         self.gpt.eval()
         return self
-        
-#defining function for caption generation 
 
-
+'''
+defining function for caption generation 
+'''
 
 def generate(
         model,
@@ -175,41 +176,42 @@ def generate(
             generated_list.append(output_text)
 
     return generated_list[0]
-
+    
+'''
+downloading and Initializing model
+'''
 
 #setting device type and downloading clip and tokenizer pretrained models
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 #dowloading clip model
-print("downlaoding clip model")
 clip_model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
 #downlaoding gpt model
-print("downloading gpt model")
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
-print("loading prompt generator model")
+#loading prompt generator model
 model_path = 'models/conceptual_captions_model_wieghts.pt'
 prefix_length = 10
 model = ClipCaptionModel(prefix_length)
 model.load_state_dict(torch.load(model_path))
 model = model.to(device)
 
+'''
+Defining prompt generator function
+'''
 
 def prompt_generator(img):
+    #loading image
     im = np.squeeze(img).astype("uint8")
-    pil_image = PIL.Image.fromarray(im)
-    
+    pil_image = PIL.Image.fromarray(im)   
     image = preprocess(pil_image).unsqueeze(0).to(device)
     
+    #creating prompt
     with torch.no_grad():
         prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
         prefix_embed = model.clip_project(prefix).reshape(1, prefix_length, -1)
 
         generated_text_prefix = generate(model, tokenizer, embed=prefix_embed)
        
-
     return generated_text_prefix
-
-
-print("done with as it was")
 
