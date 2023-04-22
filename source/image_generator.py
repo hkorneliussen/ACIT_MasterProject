@@ -1,6 +1,28 @@
+# Copyright 2023 Hanne Korneliussen
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-print("V:3")             
+"""Keras implementation of StableDiffusion.
+Credits:
+- Original implementation:
+  https://github.com/CompVis/stable-diffusion
+- Initial TF/Keras port:
+  https://github.com/divamgupta/stable-diffusion-tensorflow
 
+This implementation is based on: 
+https://github.com/keras-team/keras-cv/blob/master/keras_cv/models/stable_diffusion/stable_diffusion.py"""
+
+#Setting log level
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -19,24 +41,26 @@ import tensorflow as tf
 from tensorflow import keras
 from PIL import Image
 
-
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 import warnings
 warnings.simplefilter("ignore")
 
-
-###########################PARAMETERS#################
+'''
+Defining hyperparameters
+'''
 
 img_height = 512
 img_width = 512
 seed = None
 MAX_PROMPT_LENGTH = 77
 
-###################LOADING MODELS#########################
+'''
+Loading models
+'''
 
-
+#loading text encoder
 def text_encoder(jit_compile=False):
-  """returns the text encoder with pretrained weights."""
+  #returns the text encoder with pretrained weights
   text_encoder = TextEncoder(MAX_PROMPT_LENGTH)
   if jit_compile:
     text_encoder.compile(jit_compile=True)
@@ -44,9 +68,9 @@ def text_encoder(jit_compile=False):
 
 text_encoder = text_encoder()
 
-
+#loading diffusion model
 def diffusion_model(jit_compile=False):
-  """returns diffusion model with pretrained weights"""
+  #returns diffusion model with pretrained weights
   diffusion_model = DiffusionModel(
       img_height, img_width, MAX_PROMPT_LENGTH
   )
@@ -56,11 +80,9 @@ def diffusion_model(jit_compile=False):
 
 diffusion_model = diffusion_model()
 
-
-
-
+#Loading decoder
 def decoder(jit_compile=False):
-  """returns the diffusion image decoder with pretrained weights"""
+  #returns the diffusion image decoder with pretrained weights
   decoder = Decoder(img_height, img_width)
   if jit_compile:
     decoder.compile(jit_compile=True)
@@ -68,19 +90,20 @@ def decoder(jit_compile=False):
 
 decoder = decoder()
 
-
-
+#loading tokenizer
 def tokenizer():
-  """returns the tokenizer usd for text inputs"""
+  #returns the tokenizer usd for text inputs
   tokenizer = SimpleTokenizer()
   return tokenizer
 
 tokenizer = tokenizer()
 
+'''
+Defining functions
+'''
 
-#################DEFINNG FUCNTIONS"""""""""""""""""""""""
+#This function extends a tensor by repeating it to fit the shape of the given batch size
 def expand_tensor(text_embedding, batch_size):
-  """Extends a tensor by repeating it to fit the shape of the given batch size"""
   #removing all dimensions with size 1 from the tensor, so that the tensor has the minimal number of dimensions
   text_embedding = tf.squeeze(text_embedding)
   #The rank of a tensor is the number of dimensions it has
@@ -93,7 +116,7 @@ def expand_tensor(text_embedding, batch_size):
   return text_embedding
   
   
-#function that generates a tensor of random values with specified shape
+#This function generates a tensor of random values with specified shape
 def get_initial_diffusion_noise(batch_size, seed):
   if seed is not None:
     return tf.random.stateless_normal(
@@ -105,12 +128,9 @@ def get_initial_diffusion_noise(batch_size, seed):
         (batch_size, img_height//8, img_width//8, 4)
     )
 
-
 def get_pos_ids():
   return tf.convert_to_tensor([list(range(MAX_PROMPT_LENGTH))], dtype=tf.int32)
-  
-  
-  
+   
 def get_initial_alphas(timesteps):
   #list that contains elements from the ALPHAS_ComPROD list, with indices specified by the timesteps argument
   alphas = [_ALPHAS_CUMPROD[t] for t in timesteps]
@@ -119,10 +139,7 @@ def get_initial_alphas(timesteps):
 
   return alphas, alphas_prev
   
-  
-  
-  
-#Function that generates timestep embedding for a single timestep 
+#This function generates timestep embedding for a single timestep 
 def get_timestep_embedding(timestep, batch_size, dim=320, max_period=10000):
   #computing the half of the embedding dimension
   half = dim // 2
@@ -139,7 +156,6 @@ def get_timestep_embedding(timestep, batch_size, dim=320, max_period=10000):
   #repeating the 'embedding' tensor 'batch_size' times along the first dimension, returns a embedding tensor of shape [batch_size, dim]
   return tf.repeat(embedding, batch_size, axis=0)
   
-
 def get_unconditional_context():
   unconditional_tokens = tf.convert_to_tensor(
       [_UNCONDITIONAL_TOKENS], dtype=tf.int32
@@ -150,18 +166,10 @@ def get_unconditional_context():
 
   return unconditional_context
   
-
- 
-#Defining function to encode text
+#Defining function to encode text into a latent text encoding
 def encode_text(prompt):
-  '''
-  encodes a prompt into a latent text encoding 
-  '''
-  #tokenizing the input prompt using the SimpleTokenizer function
-  
- 
+  #tokenizing the input prompt using the SimpleTokenizer function 
   inputs = tokenizer.encode(prompt)
- 
 
   #adding a special token 49407 tot he end of the tokenized prompt until it reaches
   #the length of MAX_PROMPT_LENGTH
@@ -177,31 +185,24 @@ def encode_text(prompt):
   #returning the latent text encoding of the prompt
   return context
   
-  
-    
-    
-    
-###################GENERATING iMAGES######################## 
-
-
+'''
+Generating images
+'''
 
 def gen_image(prompt, diffusion_noise,
      batch_size,
      num_steps,
      unconditional_guidance_scale,
      seed=seed):
-        
     
-   
-    
+    #Encoding text prompt
     encoded_text = encode_text(prompt)
-
     context = expand_tensor(encoded_text, batch_size)
 
     unconditional_context = tf.repeat(
       get_unconditional_context(), batch_size, axis=0)
 
-
+    #defining initial diffusion noise/latent vector
     if diffusion_noise is not None:
         diffusion_noise = tf.squeeze(diffusion_noise)
         if diffusion_noise.shape.rank == 3:
@@ -218,17 +219,14 @@ def gen_image(prompt, diffusion_noise,
     progbar = keras.utils.Progbar(len(timesteps))
     iteration = 0
 
+    #diffusion process
     for index, timestep in list(enumerate(timesteps))[::-1]:
         latent_prev = latent  # Set aside the previous latent vector
         t_emb = get_timestep_embedding(timestep, batch_size)
         unconditional_latent = diffusion_model.predict_on_batch([latent, t_emb, unconditional_context])
-  
-  
-  
+
         latent = diffusion_model.predict_on_batch([latent, t_emb, context])
         latent = unconditional_latent + unconditional_guidance_scale * (latent - unconditional_latent)
-        
-        
         
         a_t, a_prev = alphas[index], alphas_prev[index]
         pred_x0 = (latent_prev - math.sqrt(1 - a_t) * latent) / math.sqrt(a_t)
@@ -236,14 +234,9 @@ def gen_image(prompt, diffusion_noise,
         iteration += 1
         progbar.update(iteration)
   
-
-  
+    #creating decoded vector
     decoded = decoder.predict_on_batch(latent)
     decoded = ((decoded + 1) / 2) * 255
-    
-    
-
-    #tf.keras.backend.clear_session()
-    
+       
     return np.clip(decoded, 0, 255).astype("uint8"), tmp_latent, prompt
 
