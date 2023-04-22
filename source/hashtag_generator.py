@@ -1,22 +1,22 @@
+'''This code is based on: https://gist.github.com/manmohan24nov'''
+
 '''
-source: https://towardsdatascience.com/keyword-extraction-process-in-python-with-natural-language-processing-nlp-d769a9069d5c
+Importing Dependencies
 '''
 
-print("importing dependenceis")
 #importing dependencies
 import spacy
 from collections import Counter
 from string import punctuation
 import re               
 
-print("loading spacy model")
 #loading spacy model
 nlp = spacy.load('hashtags')
-
 
 '''
 Keyword extraction function
 '''
+
 def get_hotwords(text):
   result = []
   #list of the part of speech tag we want to extract 
@@ -51,6 +51,5 @@ def generate_hashtags_from_prompt(prompt):
     search_list = ['high']
     if re.compile('|'.join(search_list), re.IGNORECASE).search(hashtag):
         hashtag = hashtag.replace('#high', '')
-        
-    
+           
     return hashtag   
