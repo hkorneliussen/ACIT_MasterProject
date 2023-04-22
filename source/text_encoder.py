@@ -1,5 +1,22 @@
+# Copyright 2023 Hanne Korneliussen
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+'''This code is based on: 
+https://github.com/keras-team/keras-cv/blob/master/keras_cv/models/stable_diffusion/text_encoder.py'''
+
 '''
-source: https://github.com/keras-team/keras-cv/blob/master/keras_cv/models/stable_diffusion/text_encoder.py
+Importing dependencies
 '''
 
 #importing dependencies
@@ -8,10 +25,12 @@ from tensorflow import keras
 from tensorflow.experimental import numpy as tfnp
 
 '''
+Defining the textencoder
+
 The textencoder class is a keras.model that is used to produce an embedded representation of a text input. 
-
-Its input tokens and positions are passed thorugh an CLIPEmbedding layer, which is used to embed the tokens and positions into a continous vector space. The resulting embedded representation is then passed through multiple CLIPEncoder layers' to produce the final embedded representation. The final representation is then passed through a LayerNormalization layer to normalize the activations. 
-
+Its input tokens and positions are passed thorugh an CLIPEmbedding layer, which is used to embed the tokens and positions into a continous vector space. 
+The resulting embedded representation is then passed through multiple CLIPEncoder layers' to produce the final embedded representation. 
+The final representation is then passed through a LayerNormalization layer to normalize the activations. 
 If download_weights is true, the weights of the model will be downloaded and loaded. 
 '''
 
@@ -36,15 +55,10 @@ class TextEncoder(keras.Model):
         if download_weights:
             text_encoder_weights_fpath = 'models/kcv_encoder.h5'
             self.load_weights(text_encoder_weights_fpath)
-        
-        '''
-        if download_weights:
-            text_encoder_weights_fpath = keras.utils.get_file(
-                origin="https://huggingface.co/fchollet/stable-diffusion/resolve/main/kcv_encoder.h5",
-                file_hash="4789e63e07c0e54d6a34a29b45ce81ece27060c499a709d556c7755b42bb0dc4",
-            )
-            self.load_weights(text_encoder_weights_fpath)
-        '''    
+            
+'''
+Defining helper functions and layers
+'''
             
 #Defining the Gaussian Error Linear Unit (GELU) activation function           
 def quick_gelu(x):
@@ -53,8 +67,8 @@ def quick_gelu(x):
     
 '''
 Token embeddings are used to represent the meaning of the words in the input sequence. They capture the semantic information of the words. 
-
-Position embeddings are used to represent the position of the words in the input sequence. The idea is that the same word can have different meanings in different positions in a sentence, and that the position of the word can provide additional information to the model. Position embeddings are added to the token embeddings to provide the model with information about the position of the words. 
+Position embeddings are used to represent the position of the words in the input sequence. The idea is that the same word can have different meanings in different positions in a sentence, 
+and that the position of the word can provide additional information to the model. Position embeddings are added to the token embeddings to provide the model with information about the position of the words. 
 '''
     
 #Defining a custom layer in keras called CLIPEmbedding
@@ -112,8 +126,8 @@ class CLIPEncoderLayer(keras.layers.Layer):
         
 '''
 The CLIPAttention layer is a custom implementation of the attention mechanism in deep learning models. It takes inputs and rturns the attention-weighted representation of the inputs. 
-
-The attention mechanism calculates a weight for each input and combines the inputs based on their weights. In this specific implementation, the attention mechanism is used for multi-head self-attention. This means that the layer takes the inputs, projects them into multiple attention heads, and uses each head to attent to different parts of the inputs. The results from each head are then concatenated and transformed to produce the final output
+The attention mechanism calculates a weight for each input and combines the inputs based on their weights. In this specific implementation, the attention mechanism is used for multi-head self-attention. 
+This means that the layer takes the inputs, projects them into multiple attention heads, and uses each head to attent to different parts of the inputs. The results from each head are then concatenated and transformed to produce the final output
 '''
         
 #Defining a custom layer called CLIPAttention
