@@ -13,7 +13,7 @@
 # limitations under the License.
 
 '''This code is based on: 
-https://github.com/keras-team/keras-cv/blob/master/keras_cv/models/stable_diffusion/decoder.py''
+https://github.com/keras-team/keras-cv/blob/master/keras_cv/models/stable_diffusion/decoder.py'''
 
 #importing dependencies
 from tensorflow import keras
