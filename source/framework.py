@@ -43,10 +43,9 @@ def update_init_population(update_initial_population, img_height, img_width, bat
         os.makedirs(population_folder)
 
     if len(os.listdir(population_folder)) == 0 or update_initial_population:
-        print("no files in the population directory, creating initial population")
+        print("Creating initial population")
 
         if len(os.listdir(population_folder)) != 0:
-            print("clearing population folder")
             for img_name in os.listdir(population_folder):
                 file_name = os.path.join(population_folder, img_name)
                 os.remove(file_name)
@@ -60,12 +59,9 @@ def update_init_population(update_initial_population, img_height, img_width, bat
         
         #generating prompts
         prompts = gen_captions(10, key)
-        print("\n\n")
-        print(prompts)
     
         #generating images
         for prompt in prompts:
-            print(prompt)
             diffusion_noise = tf.random.normal((batch_size, img_height//8, img_width//8, 4))
             img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
             Image.fromarray(img[0]).save(f"{population_folder}/{i}.png") 
@@ -74,13 +70,14 @@ def update_init_population(update_initial_population, img_height, img_width, bat
             posts_dict.append({'num' : i, 'fitness' : 0, 'latent': latent, 'prompt': prompt, 'hashtag': hashtag})      
             i+=1
             
-        print('done creating')
+        print('Initial population created')
     
+        #storing population
         with open(f'logs/posts_dict_{iteration}.txt', 'wb') as f:
             pickle.dump(posts_dict, f)
         
     else:
-        print("files in init population. Not update selected")
+        print("Initial population exists. No update selected")
         
         
 '''
@@ -158,10 +155,8 @@ def main(iteration, update, clear, num, gs, ngs, key):
         for image_path in os.listdir(population_folder):
             #read image from population folder
             input_path = os.path.join(population_folder, image_path)
-            print(input_path)
             img = iio.imread(input_path)
             prompt = posts_dict[b]['prompt']
-            print(prompt)
 
             #generate hashtag for image
             hashtag = generate_hashtags_from_prompt(prompt)
@@ -192,7 +187,6 @@ def main(iteration, update, clear, num, gs, ngs, key):
         with open(f'logs/posts_dict_{iteration}.txt', 'wb') as f:
             pickle.dump(posts_dict, f)
       
-
         #calculating average fitness of population
         avg_score = 0
         for post in posts_dict:
@@ -213,11 +207,9 @@ def main(iteration, update, clear, num, gs, ngs, key):
             
         '''
         creating new population
-
         '''
-        
-   
-        
+        print("Creating new population")
+                  
         #shuffle population
         random.shuffle(posts_dict)
             
@@ -237,6 +229,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
         '''
         changing style
         '''
+        print("changing style on two of the most popular images")
             
         #Getting styles 
         styles_file = open('prompt_bank/styles.txt', "r")
@@ -261,16 +254,20 @@ def main(iteration, update, clear, num, gs, ngs, key):
         a = 0
         for i in range(len(posts_change_style[0])):
             prompt = posts_change_style[0][i]['prompt']
-            print(prompt)
             fitness = posts_change_style[0][i]['fitness']
             diffusion_noise = tf.random.normal((batch_size, img_height//8, img_width//8, 4))
-            #diffusion_noise = posts_change_style[0][i]['latent']
             img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, new_scale)
             hashtag = generate_hashtags_from_prompt(prompt)
             new_population.append({'num' : a, 'fitness':fitness, 'latent': latent, 'prompt': prompt, 'hashtag': hashtag})
             Image.fromarray(img[0]).save(f"{next_population_folder}/{a}.png") 
-            a+=1            
-
+            a+=1     
+            
+        '''
+        Evolving images
+        '''
+        
+        print("Evolving images based on fitness scores, creaing 4 new images")
+        
         a=2
         style_change=0.5
         s=3
@@ -278,8 +275,8 @@ def main(iteration, update, clear, num, gs, ngs, key):
             
         random.shuffle(posts_evolve)
 
-        #for _ in range(len(posts_evolve[0])):
-        for _ in range(4):          
+        #select parents using tournament selection
+        for _ in range(4):     
             selected_parent = tournament_selection(posts_evolve)            
             selected_parents.append(selected_parent)
               
@@ -287,28 +284,26 @@ def main(iteration, update, clear, num, gs, ngs, key):
         
         archive = []
             
-        for i in range(len(selected_parents))[:4]:
-                        
-            print(i)
-            some_post1 = selected_parents[i]
-            #print(some_post1['prompt'])       
+        #creating offspring/children    
+        for i in range(len(selected_parents))[:4]:                        
+            some_post1 = selected_parents[i]   
 
             try:
                 some_post2 = selected_parents[i + 1]
      
             except IndexError:
-                some_post2 = selected_parents[i - 1]
+                some_post2 = selected_parents[i - 1] 
 
-            #print(some_post2['prompt'])        
-
+            #using crossover to combine two parents two form a children
             list_of_children_genome = crossover(some_post1['latent'], some_post2['latent'], crossover_probability)
                 
+            #ensuring that the same parent-combination is not used twice    
             archive_prompt_1 = some_post1['prompt'] + some_post2['prompt']
             archive_prompt_2 = some_post2['prompt'] + some_post1['prompt']
             
+            #Ensuring that new parent combinations are used 
             do = True
             while do:
-                print("doing..")
                 if archive_prompt_1 in archive or archive_prompt_2 in archive or some_post1['prompt']==some_post2['prompt']:
                     random.shuffle(posts_evolve)
                     
@@ -325,25 +320,26 @@ def main(iteration, update, clear, num, gs, ngs, key):
                                   
                 else:
                     do = False               
-                
+            
+            #the resulting children will change style with some propability
             rand_style_num = random.uniform(0,1)
                 
             prompt1 = some_post1['prompt']
            
             if rand_style_num < style_change:
-      
+                changed = True
                 word = 'style:'
                 if word in prompt1: 
                     index = prompt1.find(word)
                     prompt1 = prompt1[:index]
                 prompt1 = prompt1 + ' style: ' + styles[s]
                 s+=1
-                
-            print(prompt1)
+               
+            #changing style of the children's prompt with given probability   
             rand_style_num = random.uniform(0,1)
                 
             prompt2 = some_post2['prompt']
-            if rand_style_num < style_change:
+            if rand_style_num < style_change and not changed:
       
                 word = 'style:'
                 if word in prompt2: 
@@ -358,16 +354,18 @@ def main(iteration, update, clear, num, gs, ngs, key):
             archive.append(archive_prompt_1)
             archive.append(archive_prompt_2)
 
-  
+            #performing mutation on the new children with given probability
             rand_index = random.randint(0,1)          
             child_genome = list_of_children_genome[rand_index]                 
             child_genome = mutation(child_genome, mutation_probability)
+            
+            #creating image
             diffusion_noise = child_genome
             prompt = c_prompt
             prompt_len = (len(prompt))
             try:
                 img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
-            
+            #if unable to create image, summarize the prompts
             except:
                 prompt1 = summarize(prompt1)
                 prompt2 = summarize(prompt2)
@@ -379,26 +377,34 @@ def main(iteration, update, clear, num, gs, ngs, key):
                     s+=1
                     
                 img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
-
+            
+            #create a new prompt for the created image
             prompt = prompt_generator(img)
+            #create corresponding hashtag
             hashtag = generate_hashtags_from_prompt(prompt)
 
+            #appending the new children to the new population
             new_population.append({'num' : a, 'fitness':0, 'latent': diffusion_noise, 'prompt': prompt, 'hashtag': hashtag})
     
+            #storing the image
             Image.fromarray(img[0]).save(f"{next_population_folder}/{a}.png") 
             a+=1         
            
         '''
-        ADDING 2 NEW
+        Adding 4 new images
         '''
+        
+        print("adding 4 new images to the new population")
+        
+        #creating new prompts
         prompts = gen_captions(4, key)               
         for pr in prompts:
-
+            #creating images and corresponding hashtags
             diffusion_noise = tf.random.normal((batch_size, img_height//8, img_width//8, 4))
             img, latent, prompt = gen_image(pr, diffusion_noise, batch_size, num_steps, new_scale)
             hashtag = generate_hashtags_from_prompt(prompt)
             Image.fromarray(img[0]).save(f"{next_population_folder}/{a}.png")    
-            
+            #adding images to the new population
             new_population.append({'num' : a, 'fitness' : 0, 'latent': latent, 'prompt': prompt, 'hashtag': hashtag})                
 
             a+=1   
@@ -411,6 +417,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
 
         iteration = next_iteration
         
+        #Giving user choice of continue or end the framework
         choice = input('continue? (y or n): ')
         if choice.lower() == 'n':
             print(f'Ending. Reached iteration: {iteration-1}')
