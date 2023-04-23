@@ -141,7 +141,8 @@ def main(iteration, update, clear, num, gs, ngs, key):
                 shutil.rmtree(os.path.join(root, d))    
     
     #if this is the first iteration, the initial population must be created
-    if iteration==0:        
+    if iteration==0:    
+      population_folder = f'generated_images/population_{iteration}'
       if len(os.listdir(population_folder)) < 10:
         update_initial_population=True
       #updating initial population
@@ -152,7 +153,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
         #get current population
         with open(f'logs/posts_dict_{iteration}.txt', 'rb') as handle:
             posts_dict = pickle.loads(handle.read())
-        
+            
         population_folder = f'generated_images/population_{iteration}'
         if not os.path.exists(population_folder):
             os.makedirs(population_folder)
