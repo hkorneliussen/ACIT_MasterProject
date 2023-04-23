@@ -129,6 +129,8 @@ def main(iteration, update, clear, num, gs, ngs, key):
     
     #if this is the first iteration, the initial population must be created
     if iteration==0:        
+      if len(os.listdir(population_folder)) < 10:
+        update_initial_population=True
       #updating initial population
       update_init_population(update_initial_population, img_height, img_width, batch_size, num_steps, new_scale, key)
     
