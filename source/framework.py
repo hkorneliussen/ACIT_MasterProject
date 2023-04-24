@@ -187,7 +187,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
             sleep(0.5)
 
             #get score from user
-            response = input('would you interact with this post?')
+            response = input('would you interact with this post? ')
             if response.lower() == 'y' or response.lower() == 'yes':
                 posts_dict[b]['fitness'] = 1
             elif response.lower() == 'n' or response.lower() == 'no':
@@ -219,6 +219,17 @@ def main(iteration, update, clear, num, gs, ngs, key):
           f.write(f'\niteration: {iteration}')
           f.write(f'\navg score: {avg_score}')
           f.write('\n######################################') 
+        
+        #Giving user choice of continue or end the framework
+        choice = input('continue? (y or n): ')
+        if choice.lower() == 'n':
+            print(f'Ending. Reached iteration: {iteration-1}')
+            go = False
+            break
+        elif choice.lower() == 'y':
+            go = True
+        else:
+            print(f'illegal answer. Ending. Reached iteration: {iteration-1} ')
             
         '''
         creating new population
@@ -432,14 +443,5 @@ def main(iteration, update, clear, num, gs, ngs, key):
 
         iteration = next_iteration
         
-        #Giving user choice of continue or end the framework
-        choice = input('continue? (y or n): ')
-        if choice.lower() == 'n':
-            print(f'Ending. Reached iteration: {iteration-1}')
-            go = False
-        elif choice.lower() == 'y':
-            go = True
-            print(f'starting ieration nr: {iteration}')
-        else:
-            print(f'illegal answer. Ending. Reached iteration: {iteration-1} ')
+        
         
