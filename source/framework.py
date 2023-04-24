@@ -221,13 +221,13 @@ def main(iteration, update, clear, num, gs, ngs, key):
         #Giving user choice of continue or end the framework
         choice = input('continue? (y or n): ')
         if choice.lower() == 'n':
-            print(f'Ending. Reached iteration: {iteration-1}')
+            print(f'Ending. Reached iteration: {iteration}')
             go = False
             break
         elif choice.lower() == 'y':
             go = True
         else:
-            print(f'illegal answer. Ending. Reached iteration: {iteration-1} ')
+            print(f'illegal answer. Ending. Reached iteration: {iteration} ')
             
         '''
         creating new population
