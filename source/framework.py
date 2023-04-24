@@ -65,12 +65,10 @@ def update_init_population(update_initial_population, img_height, img_width, bat
             diffusion_noise = tf.random.normal((batch_size, img_height//8, img_width//8, 4))
             #generating image   
             try:
-                print(prompt)
                 img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
             #if unable to create image, summarize the prompts
             except:
                 prompt = summarize(prompt)
-                print(prompt)
                 img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
             
             Image.fromarray(img[0]).save(f"{population_folder}/{i}.png") 
