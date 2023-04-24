@@ -165,8 +165,10 @@ def main(iteration, update, clear, num, gs, ngs, key):
         Getting fitness/feedback for current population
         '''
         b=0
-        for image_path in os.listdir(population_folder):
+        num_images = len(os.listdir(population_folder)
+        for b in range(num_images):
             #read image from population folder
+            image_path = f'{b}.png'
             input_path = os.path.join(population_folder, image_path)
             img = iio.imread(input_path)
             prompt = posts_dict[b]['prompt']
@@ -194,7 +196,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
                 print('Illegal answer. Score is unchanged.')
                 pass
 
-            b+=1
+         
             
         #updating dict file
         with open(f'logs/posts_dict_{iteration}.txt', 'wb') as f:
