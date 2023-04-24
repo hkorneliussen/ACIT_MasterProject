@@ -73,10 +73,6 @@ def update_init_population(update_initial_population, img_height, img_width, bat
                 print(prompt)
                 img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
             
-            
-            
-            
-            img, latent, prompt = gen_image(prompt, diffusion_noise, batch_size, num_steps, unconditional_guidance_scale)
             Image.fromarray(img[0]).save(f"{population_folder}/{i}.png") 
             hashtag = generate_hashtags_from_prompt(prompt)
             
