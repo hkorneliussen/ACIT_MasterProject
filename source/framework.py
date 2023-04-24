@@ -352,6 +352,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
                 
             prompt1 = some_post1['prompt']
            
+            changed = False
             if rand_style_num < style_change:
                 changed = True
                 word = 'style:'
@@ -360,7 +361,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
                     prompt1 = prompt1[:index]
                 prompt1 = prompt1 + ' style: ' + styles[s]
                 s+=1
-               
+                      
             #changing style of the children's prompt with given probability   
             rand_style_num = random.uniform(0,1)
                 
