@@ -165,7 +165,7 @@ def main(iteration, update, clear, num, gs, ngs, key):
         Getting fitness/feedback for current population
         '''
         b=0
-        num_images = len(os.listdir(population_folder)
+        num_images = len(os.listdir(population_folder))
         for b in range(num_images):
             #read image from population folder
             image_path = f'{b}.png'
