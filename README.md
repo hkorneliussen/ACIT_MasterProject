@@ -1,5 +1,5 @@
 # ACIT: Master Project
-This github repository contains code used to define the framework presented in the master thesis *"Interactive Evolution Computation for maximizing user engagement on a social media platform"*. 
+This github repository contains code used to define the framework presented in the master thesis *"A Social Media Content Optimization Framework Based on Interactive Evolution Computation: A Case Study with Instagram"*. 
 
 The *source* folder contains all scripts and definitions. In addition, the file *IEC_Framework_Demo.ipynb* contains a demo of the framework. 
 
