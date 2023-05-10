@@ -21,26 +21,16 @@ A Seaside village
 A Rural farm scene
 A cute cat
 A cute dog
-A cute animal
-A day in the life of a cat
-A day in the life of a dog
-A day in the life of a bird
-A day in the life of a monkey
-A day in the life of a tiger
-A day in the life of a elephant
-A day in the life of a panda
-A day in the life of a koala
-Animals in their natural habitats
+A cute tiger
 lions on the savannah
 penguins in the Arctic
-Cute and cuddly animals
+Cute and cuddly rabbits
 Majestic animals
 eagle
 whale
 horse
 dog
 cat
-cheetahs chasing prey
 dolphins leaping out of the water
 panda
 a cat in a flower pot
@@ -96,22 +86,18 @@ a nature landscape
 an art painting
 a forrest
 a hiking path
-a travel blogger
 summer
-a model
 winter
 spring 
 autumn
-a catwalk
 backpacking
 a cute dog
 a rare animal
 a cute cat
-a dog lover
 wedding inspiration
 fitness
 crossfit
-the univers
+the universe
 stars
 planets
 the galaxy 
@@ -131,7 +117,6 @@ flowers
 wildlife
 a sandy beach
 lantern
-a hero
 fire
 ice
 the ocean
@@ -151,27 +136,14 @@ hearts
 something colorful
 something vintage 
 art
-something fun
-cute animal
-a cat
-a dog
-a cute smile
 food
 travelling
-makeup
 eye makeup
-foodporn
 a motivation wallpaper
 a sky wallpaper
 a funny illustration
 flowers
-a cute baby
-funny memes
 a party 
-an inspiration wallpaper
-a cool wallpaper
-swag
-something healthy
 a black and white theme
 a black motiv
 a winter wallpaper
@@ -200,8 +172,6 @@ a funny festival
 a new film poster
 Healthy fruits
 Ice-cream
-a Horse in the wild
-a Delicious milkshake
 parachute in fantastic landscape
 a rainbow
 a Robot of the future
@@ -240,12 +210,6 @@ A traffic light in a jungle
 A mailbox in the middle of a desert
 A rubber duck in a bathtub on top of a skyscraper
 animals in unusual settings
-Food and drink
-Sports and fitness
-Music and dance
-Art and literature 
-Festivals and celebrations 
-Transportation
 A beautiful sunset over the ocean
 A cute puppy playing in the park
 A majestic mountain range covered in snow
@@ -479,9 +443,7 @@ A city plaza with a giant fountain featuring sculptures of mythological creature
 An art installation featuring interactive mirrors and lighting in a city park
 A city street lined with colorful storefronts and vintage neon signs
 A city art gallery hosting an exhibit of cutting-edge digital art and virtual reality experiences
-art
 grafiti
-creativity
 A reimagining of "Starry Night" by Vincent van Gogh with a city skyline
 A reinterpretation of "Girl with a Pearl Earring" by Johannes Vermeer with a modern twist
 An abstract interpretation of "The Persistence of Memory" by Salvador Dali with a futuristic twist
@@ -692,656 +654,35 @@ A cryptic message left behind by an unknown author
 A secret passage leading to a hidden room
 A locked box with unknown contents
 A strange symbol with an unknown meaning
-aardvark
 Candy
 Cupcake
 Giraffe
 Moonshine
-sneezer
-Nostalgia
-toucan in an unusual setting
-concrete
-Bliss
-constellation
-painting
-Constellation
-cat
-magnolia
-illustration
-Fog
-Fuzzball
-abstract
-luminescence
-cinnamon
-plumage
-Canvas
 Tower
-lentil
-Mascot
-Dunes
-mug
-lobster
-Furry
 bubble
-brushstroke
-potions
-gadget
-Foliage
-fjord
-masterpiece
-Pillow
-monster
-passion
-clamor
-crocodile
-Run
-buttercup
-Mermagic
-Quintessence
-connection
-Foxtrot
 jupiter
-Stride
 Treetops
 feather
-coaster
-Prince
-murals
-Gift
-Hocus
-belly
-lark
-Doll
-Skydiving
-Dapple
-cosmos
-Impressionism
-luminary
-Creativity.
 snowflake
-Lamp
-range
-scoff
-Jaguar in an unusual setting
-Sparrow in an unusual setting
-eclair
 unicorn
-Styles
-breeze
 snowman
-sneeze
-parakeet
-jaguar
-Moonscape
-crayon
-Plunder
-Spell
-aardvark in an unusual setting
-Pretzel
-Fruit
-expectation
-Option
-Mossy
-prince
-beetle in an unusual setting
-Princess
-bouquet
-Seed
-lakeside
-Vacation
-muck
-Mystic
-Muse
 chameleon
-Furniture
-Toucan in an unusual setting
-scenery
-generosity
-patterns
-Flock
-banana
-oasis
-mountain
-Hair
-Shetland pony in an unusual setting
-Comet
-Canyon
-Prestidigitation
-beaver
-splendid
-Hippo
-structure
 Mermaid
-pajamas
-foxglove
-scallop
-pony
-Sleuth
-Nurture
-snow
-muse
-Panther
-princess
-invention
-cliffs
-Ether
-Creativity
-Mountain
-puppy
-Pumpkin
-inspiration
-Pruning
-basket
-iguana
-buzz
-witchcraft
-jumble
-geyser
-transportation
-Windfall
-Rapture
-Enchantment
-Interruption
-Frosting
-Lobster
-tiger in an unusual setting
-Mishap
-Sorrow
-Pangolin in an unusual setting
-table
-Pizza
-Staircase
-feast
-childhood
-bumblebee
-meadow
-Radiance
-oak
-Patronage
-bulb
-Orion
-Fairytale
-jungle
 fireworks
-Lumber
-Sprout
-Ridge
-puddle
-bounty
-Puppy in an unusual setting
-queen
+A Puppy in an unusual setting
 Stardust
-valley
-Coconut
-pig in an unusual setting
-Cinderella
-gizmo
-Puppy
-Atmosphere
-Foobar
-Brew
 Pineapple
-dew
-Lakes
-Crystal
-humus
-Kangaroo in an unusual setting
-cloak
-Light
-Desert
-Abstraction
-magical
-Mug
-regimen
-Stardust.
-paradise
-Supernova
-People
-potato
 Sparrow
-Presto
-tulip
 flower
-Pixie
-sparkle
-blossom
-cave
-Witchcraft
-Wizardry
-creation
-Snakes
-chameleon in an unusual setting
-beast
-Foible
-potential
-abundance
-smile
-Tundra
-imagination
-fern
-Prestige
-stardust
-Nest
-Astronomy
-canvas
-sunshine
-Puddle
-snuggle
-flora
-luminous
-Snickers
-Life
-Toucan
-Dolphin in an unusual setting
-Sphynx
-luster
-Queen
-stride
-wish
-Doodles
-luminosity
-enchantments
-ocean
-Tiger
-mammal in an unusual setting
-Doorstep
-pancake
 paintbrush
-clutter
-Pig
-Fidget
-Dollop
-sagebrush
-House
-feeling
-Sparrow.
-Fuzzy
-Serendipity
-Mana
-Seal
-Snarkle
-glitter
-Castle
-Beauty
-Fang
-Vista
-apple
-Doodad
-cuddle
-snowball
-pizza
-Kinkajou
-cliff
-Gimmick
-Precipice
-amulet
-Sprinkles
-wand
-Llama in an unusual setting
-manatee in an unusual setting
-seascape
-Dishwasher
-flounder
-Foam
-magic potion
-Hour
-enchanted
-Mystical
-supernova
-planet
-fairy
-turbulence
-galaxy
-Lunatic
-Cacophony
-Sneeze
-Jaguar
-Snuggle
-object
-Lollipop
-fable
-tree
-universe
-Cuddle
-pig
-Geyser
 Troll
-plum
-paradigm
-Starlight
-Porridge
-Dew
-frenzy
-Space
-Sky.
-Oasis
-Dingbat
-Snicklefritz
-Kingdom
-Tusk in an unusual setting
-Noon
-Plum
-museum
-Enchantress
-sniggle
-Sled
-pixellation
-comet
-Fate
 Sunflower
 King
-Cheetah in an unusual setting
-Orbit.
-dwelling
-Eternity
-Stencil
-nap
-Glow
-genius
-Aesthetics
-Dewdrop
-paradox
-Trees
-Tiger in an unusual setting
-Gadget
-Fairy
-Paintbrush
-Sunsets
-snail
-pattern
-Prairie
-jaguar in an unusual setting
-Bangle
-void
-Pony
-giraffe
-Sailboat
-lullaby
-Tusk
-art
-Tattoo
-doodle
-Crocodile
-dollop
-Symphony
-Fresco
-Harmony
-hydrangea
-Fable
-Button
-Mold
-Zebra
-Aardvark
-promise
-Kangaroo
-migration
-Hairball
-muffin
-nebula
-gerbil
-teleportation
-satellite
-Witchcraft.
-lizard
-Hedgehog
-hug
-Snail
-Mirth
-toucan
-soul
-coffin
-oblivion
-Slipper
-Kitten
-Sauerkraut
-Starburst
-biscuit
-elegance
-Pets
-Garden
-Zephyr
-cactus
-scales
-pumpkin
-snicket
-lumber
-Valley
-Eclipse
-Laughter
-Misfit
-Mage
-discovery
-Siren
-Dandelion
-troll
-drip
-Potato
-Fjord
-clown
-Abundance
-mystical
-Fantasy
-coast
-Glimmer
-Dinghy
-Habitat
-Sky
-Llama
-Ceramics
-school
-castle
-Dwelling
-tangerine
-Wand
-Happily ever after
-parrot
-Pleasure
-beetle
-tattoo
-delight
-Dangle
-vein
-star
-Saurian in an unusual setting
-Doodle
-Addiction
-boulder
-seed
-Potion
-crate
-dangle
-Hills
-bison
-barnacle
-candy
-stain
-Whimsy
-Hustle
 Pilgrim
 lizard in an unusual setting
-Fondue
-bliss
-Masterpiece
-Dazzle
-Epiphany
-cranberry
-sketchbook
-Flamingo
-Cheetah
-paragon
-Bucolic
-pixie
-Sorcery.
-dromedary
-Dingus
 Tinkerbell
-Illusion
-Portmanteau
-Broom
 starfish
-Pup
-Seal in an unusual setting
-gelatin
-hippopotamus
-Collective
-spell
-Mysticism
-Satellite
-sauce
-chaos
-mural
-Pajamas
-Star
-vista
-Chimera in an unusual setting
-Scoop
-Daffodil
-rainbow
-aesthetic
-sky
-cloud
-duck
-Meteor
-Clam
-enchantment
-serenity
-Majesty
-fusion
-sculpture
-Sizzle
-Pangolin.
-gift
-peach
-Dumpling
-waterfall
-Cocoon
-Pangolin
-pomegranate
-Paradox
-ballerina
-journey
-Hippo in an unusual setting
-parakeet in an unusual setting
-Love
-Passion
-Structure
-brilliance
-Dolphin
-Leprechaun
-orbit
-Gleaming
-Aesthetic
-Drip
-Broomstick
-Enchanted
-fate
-Cliff
-Sorcery
-Bread
-dunes
-Gravity
-Saurian
 Butterfly
-Cactus
 Candle
-Cream
-cornucopia
-broom
-solar
-gargoyle
-Biscuit
-color
-motorist
-eclipse
-flamingo
-moonbeam
-Imagination
-dazzle
-Sculpture
-fire
-chandelier
-cocoon
-Snickerdoodle
-manatee
-furniture
-yarn
-moon
-platypus
-Peach
 marshmallow
-dandelion
-Shenanigans
-Refrigerator
-zebra
-Galaxy
-Fern
-wizardry
-doll
-Puppies
-clarity
-Spiral
-Pajama
-Wish
-Tangerine
-Horse
-Meadow
 coffee
-birthday
-Dish
-bloom
-Knapsack
-Tulip
-sneaker
-Tale
-tiger
-Nomad
-snake
-mammal
-Rascal
-Pilot
-Puppies in an unusual setting
-clock
-snuggles
-Fauna
-Sun
-mesa
-Lemur
-Chimera
-Breeze
-magic
-Strawberry
-magician
-Pony in an unusual setting
-caramel
-Cinnamon
-festival
-butterfly
-Dumbbell
-lion
-rollercoaster
-Coffee
-blend
-sorcery
-Splendiferous
-whisker
-Planet
-happiness
-Trip
-Sneezer
-Crumble
-Fusion
-Snicket
-cheeseburger
-motivation
-Faerie
-patina
-majesty
-Dinner
-Happiness
-lollipop
-Carry
-sparrow
-sock
-Nebula
-celery
-Seascape
